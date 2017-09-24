@@ -1,0 +1,61 @@
+<!--
+	Boostrap for headers css class etc.
+-->
+<div class="container">
+  <ul class="nav nav-tabs">
+    <li role="presentation"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]='{exact: true}'>
+      <a
+        routerLink="/">Recipe Book</a>
+    </li>
+    <li role="presentation"
+      routerLinkActive="active">
+      <a
+        routerLink="/Recipe">Recipes</a>
+    </li>
+    <li role="presentation"
+      routerLinkActive="active">
+      <a
+        routerLinkActive="active"
+        routerLink="/Shopping">Shopping List</a>
+    </li>
+    <ul class="nav navbar-nav navbar-right">
+      <ng-template
+        [ngIf]="!authService.isAuthenticated()">
+          <li role="presentation">
+              <a
+                routerLinkActive="active"
+                routerLink="/Signup">Register</a>
+            </li>
+            <li role="presentation">
+              <a
+                routerLinkActive="active"
+                routerLink="/Signin">Login</a>
+            </li>
+      </ng-template>
+      <li role="presentation">
+          <a style="cursor: pointer;"
+            routerLinkActive="active"
+            (click)="onLogOut()"
+            *ngIf="authService.isAuthenticated()">Log Out</a>
+        </li>
+      <li class="dropdown pull-right"
+        *ngIf="authService.isAuthenticated()"
+        appDropdownAlt> <!-- Used later -->
+        <!-- Used to show drop menu later caret is caret icon to indicate drop down -->
+        <a class="dropdown-toggle" role="button" style="cursor: pointer;">Manage
+          <span class="caret"></span>
+        </a>
+        <ul class="dropdown-menu">
+          <li>
+            <a style="cursor: pointer;"
+              (click)="onSave()">Save</a>
+            <a style="cursor: pointer;"
+              (click)="onFetch()">Fetch</a>
+          </li>
+        </ul>
+      </li>
+  </ul>
+  </ul>
+</div>

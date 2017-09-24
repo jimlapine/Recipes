@@ -1,0 +1,9 @@
+// remove scrolling from text area
+textarea {
+  resize: none;
+}
+
+/* Add styles to invalid controls, which have been touched */
+input.ng-invalid.ng-touched, textarea.ng-invalid.ng-touched {
+  border: 1px solid red;
+}

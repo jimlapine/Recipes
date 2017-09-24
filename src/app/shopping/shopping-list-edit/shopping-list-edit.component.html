@@ -1,0 +1,46 @@
+<div class="row">
+	<div class="col-xs-12">
+    <form
+      id="IngrediantForm"
+      #ingrediantForm="ngForm"
+      (ngSubmit)="onSubmit()">
+			<div class="row">
+				<div class="col-sm-5 form-group">
+					<label for="name">Name</label>
+          <input class="form-control" type="text" name="name" id="name" placeholder="Please enter an ingrediant."
+            ngModel
+            required
+            #name="ngModel">
+        </div>
+        <!-- Accepts only positive decimal values. Zero and negatvie numbers are non-matching. Allows zeros after last non-zero numeric value after decimal place for significant digits. -->
+				<div class="col-sm-2 form-group">
+					<label for="amount">Amount</label>
+          <input class="form-control" type="number" name="amount" id="amount" placeholder="Please enter an amount."
+            ngModel
+            required
+            pattern="^\d{0,10}(\.\d{0,2})?$"
+            #amount="ngModel">
+				</div>
+			</div>
+			<div class="row col-xs-12">
+        <button
+          type="submit"
+          class="btn btn-success"
+          [disabled]="!ingrediantForm.valid">
+					  {{ editMode ? 'Update': 'Add'}}
+				</button>
+        <button
+          class="btn btn-danger" type="button"
+          *ngIf="editMode"
+          (click)="onDelete()">
+					Delete
+				</button>
+        <button
+          class="btn btn-primary" type="button"
+          (click)="onClear()">
+					Clear
+				</button>
+			</div>
+		</form>
+	</div>
+</div>

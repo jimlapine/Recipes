@@ -1,0 +1,101 @@
+
+<div class="well">
+  <div class="row">
+    <!--Bootstrap css for columns (12)-->
+    <div class="col-xs-12">
+      <form
+        [formGroup]="recipeForm"
+        (ngSubmit)="onSubmit()">
+        <div class="row">
+          <div class="col-xs-12">
+            <button class="btn btn-success" type="submit"
+              [disabled]="!recipeForm.valid">Save</button>
+            <button class="btn btn-danger" type="button"
+              (click)="onRecipeCancel()">Cancel</button>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="form-group">
+              <label for="name">Name</label>
+              <input type="text" name="name" id="name" class="form-control"
+                formControlName="name">
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="form-group">
+              <label for="imgPath">Image URL</label>
+              <input type="text" name="imgPath" id="imgPath" class="form-control"
+                formControlName="imgPath"
+                #iPath>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="form-group">
+              <img class="img-responsive"
+                [src]="iPath.value">
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="form-group">
+              <label for="description">Description</label>
+              <textarea name="description" id="description" class="form-control" rows="3"
+                formControlName="description">
+              </textarea>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel panel-success">
+          <div class="panel-heading">
+            <label for="ingrediants">Ingrediants</label>
+          </div>
+          <!-- add formArrayName to div that wraps our controls -->
+          <!-- style="height:200px; overflow-x: hidden; overflow-y: scroll;" -->
+          <div class="row panel-body"style="height: 300px; overflow-x:scroll">
+            <div class="col-xs-12" formArrayName="ingrediants">
+              <!-- Get the controls in our ingrediant controls -->
+              <div class="row">
+                <div class="col-xs-8"><label for="name">Name</label></div>
+                <div class="col-xs-2"><label for="amount">Amount</label></div>
+              </div>
+              <div class="row form-group"
+                *ngFor="let ingredientCtrl of recipeForm.controls['ingrediants']['controls']; let i = index"
+                [formGroupName]="i">
+                <div class="col-xs-8">
+                  <!-- bind to ingrediant name -->
+                  <input type="text" class="form-control"
+                    formControlName="name">
+                </div>
+                <div class="col-xs-2">
+                  <!-- bind to ingrediant amount -->
+                  <input type="number" class="form-control"
+                    formControlName="amount">
+                </div>
+                <div class="col-xs-2">
+                  <button class="btn btn-danger" type="button"
+                    (click)="onDeleteIngrediant(i)">X</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="panel-footer clearfix">
+            <button class="btn btn-success" type="button"
+              (click)="onAddIngediant()">
+              Add Ingrediant
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
