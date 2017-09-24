@@ -87,7 +87,7 @@ export class RecipeService {
     //   servers, {headers: headers});
     const token = this.authService.getToken();
     // using put will overrwrite data
-    return this.http.put('https://ng-recipe-book-3e610.firebaseio.com/recipies.json?auth=' + token,
+    return this.http.put('https://ng-recipe-book-3e610.firebaseio.com/recipes.json?auth=' + token,
       this.recipes, { headers: headers });
   }
 
@@ -97,7 +97,7 @@ export class RecipeService {
     const token = this.authService.getToken();
 
     if (token !== null && token !== undefined) {
-      return this.http.get('https://ng-recipe-book-3e610.firebaseio.com/recipies.json?auth=' + token)
+      return this.http.get('https://ng-recipe-book-3e610.firebaseio.com/recipes.json?auth=' + token)
         .map(
         (response) => {
           const recipes: Recipe[] = response.json();
