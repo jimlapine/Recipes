@@ -98,6 +98,7 @@ export class RecipeService {
     const token = this.authService.getToken();
 
     if (token !== null && token !== undefined) {
+      // We can tell the HttpClient was type we are expecting back
       return this.http.get<Recipe[]>('https://ng-recipe-book-3e610.firebaseio.com/recipes.json?auth=' + token)
         .map(
         (recipes) => {
