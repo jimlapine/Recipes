@@ -102,6 +102,7 @@ export class RecipeService {
       return this.http.get<Recipe[]>('https://ng-recipe-book-3e610.firebaseio.com/recipes.json?auth=' + token)
         .map(
         (recipes) => {
+          // We no longer need to parse the repsonse, the HttpClient knows what type we are getting back and handles it
           // const recipes: Recipe[] = response.json();
           for (const recipe of recipes) {
             // if we don't have an igreidants array add an empty one
