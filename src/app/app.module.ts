@@ -1,10 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
-// import { ShoppingService } from './services/shopping.service';
-// import { RecipeService } from './services/recipe.service';
 import { HttpModule } from '@angular/http';
-// import { AuthentificationService} from './auth/auth.service';
 // Introduced Lazy Loading
 // import { RecipiesModule } from './recipebook/recipes.module';
 import { SharedModule } from './shared/shared.module';
