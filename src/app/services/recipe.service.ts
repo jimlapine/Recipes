@@ -3,8 +3,9 @@ import { Ingrediant } from '../shared/ingrediant.model';
 import { Injectable } from '@angular/core';
 import { ShoppingService } from './shopping.service';
 import { Subject } from 'rxjs/Subject';
-// give us access to the bulit in http service
-import { Headers, Http, Response } from '@angular/http';
+// import { Headers } from '@angular/http';
+// Imports the new HTTP Client for angular
+import { HttpClient } from '@angular/common/http';
 // allows us to use map
 import 'rxjs/Rx';
 import { Observable } from 'rxjs/Observable';
@@ -40,7 +41,7 @@ export class RecipeService {
 
   // Inject shopping service
   constructor(private shoppingService: ShoppingService,
-    private authService: AuthentificationService, private http: Http) { }
+    private authService: AuthentificationService, private http: HttpClient) { }
 
   getRecipes() {
     // Returns a copy of the recipe list
@@ -88,7 +89,7 @@ export class RecipeService {
     const token = this.authService.getToken();
     // using put will overrwrite data
     return this.http.put('https://ng-recipe-book-3e610.firebaseio.com/recipes.json?auth=' + token,
-      this.recipes, { headers: headers });
+      this.recipes);
   }
 
   private fetch() {
@@ -97,10 +98,10 @@ export class RecipeService {
     const token = this.authService.getToken();
 
     if (token !== null && token !== undefined) {
-      return this.http.get('https://ng-recipe-book-3e610.firebaseio.com/recipes.json?auth=' + token)
+      return this.http.get<Recipe[]>('https://ng-recipe-book-3e610.firebaseio.com/recipes.json?auth=' + token)
         .map(
-        (response) => {
-          const recipes: Recipe[] = response.json();
+        (recipes) => {
+          // const recipes: Recipe[] = response.json();
           for (const recipe of recipes) {
             // if we don't have an igreidants array add an empty one
             if (!recipe['ingrediants']) {
