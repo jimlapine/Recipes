@@ -9,7 +9,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { SharedModule } from './shared/shared.module';
 import { AuthModule } from './auth/auth.module';
 import { ShoppingModule } from './shopping/shopping.module';
-import { CoreModule } from './core/core.module'
+import { CoreModule } from './core/core.module';
 @NgModule({
   declarations: [
     AppComponent,
