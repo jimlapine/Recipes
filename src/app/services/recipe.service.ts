@@ -3,9 +3,8 @@ import { Ingrediant } from '../shared/ingrediant.model';
 import { Injectable } from '@angular/core';
 import { ShoppingService } from './shopping.service';
 import { Subject } from 'rxjs/Subject';
-// import { Headers } from '@angular/http';
 // Imports the new HTTP Client for angular
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams, HttpRequest } from '@angular/common/http';
 // allows us to use map
 import 'rxjs/Rx';
 import { Observable } from 'rxjs/Observable';
@@ -83,13 +82,26 @@ export class RecipeService {
     // no request will be sent until it has a subscriber.
     // data.json is firebase specifc, data can be any name you choose
     // We can also set custom headers if needed, json is the default, and this is shown as an example
-    const headers = new Headers({ 'Content-Type': 'application/json' });
+    // also we can appead more HttpHeaders options by using the .Append
+    const headers = new HttpHeaders().set('Content-Type', 'application/json');
+    const token = this.authService.getToken();
+    // We can query parameters using the new HttpClient and the HttpParams option
+    // also we can appead more HttpParams options by using the .Append
+    const params = new HttpParams().set('auth', token);
     // return this.http.post('https://ng-http-38096.firebaseio.com/data.json',
     //   servers, {headers: headers});
-    const token = this.authService.getToken();
     // using put will overrwrite data
-    return this.http.put('https://ng-recipe-book-3e610.firebaseio.com/recipes.json?auth=' + token,
-      this.recipes);
+    // return this.http.put('https://ng-recipe-book-3e610.firebaseio.com/recipes.json',
+    //   this.recipes, {
+    //     observe: 'body',
+    //     headers: headers,
+    //     params: params
+    //   });
+    // creating a request using a HttpRequest parameters: Type, URL, Data, Options
+    // reportProgress reports on the progress of our request, useful for tracking the progress of a request
+    const req = new HttpRequest('PUT', 'https://ng-recipe-book-3e610.firebaseio.com/recipes.json', this.recipes,
+      { reportProgress: true, params: params });
+    return this.http.request(req);
   }
 
   private fetch() {
