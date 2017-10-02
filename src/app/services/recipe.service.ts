@@ -84,10 +84,10 @@ export class RecipeService {
     // We can also set custom headers if needed, json is the default, and this is shown as an example
     // also we can appead more HttpHeaders options by using the .Append
     const headers = new HttpHeaders().set('Content-Type', 'application/json');
-    const token = this.authService.getToken();
+    // const token = this.authService.getToken();
     // We can query parameters using the new HttpClient and the HttpParams option
     // also we can appead more HttpParams options by using the .Append
-    const params = new HttpParams().set('auth', token);
+    // const params = new HttpParams().set('auth', token);
     // return this.http.post('https://ng-http-38096.firebaseio.com/data.json',
     //   servers, {headers: headers});
     // using put will overrwrite data
@@ -100,18 +100,13 @@ export class RecipeService {
     // creating a request using a HttpRequest parameters: Type, URL, Data, Options
     // reportProgress reports on the progress of our request, useful for tracking the progress of a request
     const req = new HttpRequest('PUT', 'https://ng-recipe-book-3e610.firebaseio.com/recipes.json', this.recipes,
-      { reportProgress: true, params: params });
+      { reportProgress: true});
     return this.http.request(req);
   }
 
   private fetch() {
-    // this alllow us to transform our data in a centralized location
-    // map will allow us to manipulate our response, return data and wrap in new observable
-    const token = this.authService.getToken();
-
-    if (token !== null && token !== undefined) {
       // We can tell the HttpClient was type we are expecting back
-      return this.http.get<Recipe[]>('https://ng-recipe-book-3e610.firebaseio.com/recipes.json?auth=' + token)
+      return this.http.get<Recipe[]>('https://ng-recipe-book-3e610.firebaseio.com/recipes.json')
         .map(
         (recipes) => {
           // We no longer need to parse the repsonse, the HttpClient knows what type we are getting back and handles it
@@ -139,9 +134,6 @@ export class RecipeService {
           console.log(error);
         }
         );
-    } else {
-      return new Promise<Recipe[]>(null);
-    }
   }
 
   onFetch() {
