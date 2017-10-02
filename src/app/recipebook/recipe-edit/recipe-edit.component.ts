@@ -85,7 +85,7 @@ export class RecipeEditComponent implements OnInit {
   }
 
   onDeleteIngrediant(index: number) {
-    if (confirm('Are you sure?')) {
+    if (confirm('Are you sure that you want to delete this ingrediant?')) {
       // remove deleted control
       (<FormArray>this.recipeForm.get('ingrediants')).removeAt(index);
     }
