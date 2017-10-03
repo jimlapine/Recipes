@@ -10,6 +10,7 @@ import { ShoppingService } from '../services/shopping.service';
 import { RecipeService } from '../services/recipe.service';
 import { AuthentificationService} from '../auth/auth.service';
 import { AuthInterceptor } from '../shared/auth.interceptor';
+import { LoggingInterceptor } from '../shared/logging.interceptor';
 @NgModule({
   declarations: [
     HeaderComponent,
@@ -32,7 +33,8 @@ import { AuthInterceptor } from '../shared/auth.interceptor';
     // Using a http interceptor requires this special way of informing angular to use it,
     // multi = true allow us to set more than one interceptor
     // Both of these must be imported above
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: LoggingInterceptor, multi: true }
   ]
 }
 )

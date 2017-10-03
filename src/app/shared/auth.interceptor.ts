@@ -16,7 +16,7 @@ export class AuthInterceptor implements HttpInterceptor {
     const newRequest = req.clone({ params: params });
     // Class example:
     // const newRequest = req.clone({ params: req.params.set('auth', token) });
-    console.log('intercept: ', newRequest);
+    console.log(`AuthInterceptor Request: ${ newRequest }`);
     return next.handle(newRequest);
   }
 }
