@@ -1,13 +1,13 @@
 <div class="row">
 	<div class="col-xs-12">
     <form
-      id="IngrediantForm"
-      #ingrediantForm="ngForm"
+      id="IngredientForm"
+      #IngredientForm="ngForm"
       (ngSubmit)="onSubmit()">
 			<div class="row">
 				<div class="col-sm-5 form-group">
 					<label for="name">Name</label>
-          <input class="form-control" type="text" name="name" id="name" placeholder="Please enter an ingrediant."
+          <input class="form-control" type="text" name="name" id="name" placeholder="Please enter an Ingredient."
             ngModel
             required
             #name="ngModel">
@@ -26,7 +26,7 @@
         <button
           type="submit"
           class="btn btn-success"
-          [disabled]="!ingrediantForm.valid">
+          [disabled]="!IngredientForm.valid">
 					  {{ editMode ? 'Update': 'Add'}}
 				</button>
         <button

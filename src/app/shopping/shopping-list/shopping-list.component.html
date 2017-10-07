@@ -4,13 +4,15 @@
 		<hr>
 		<div class="table-responsive">
 			<table class="table table-hover">
-        <tr *ngFor="let ingrediant of ingrediants; let i = index" style="cursor: pointer"
+        <!-- added async pipe, since our Ingredients are now an observable returned from our state store -->
+        <!-- Ingredients is a property of the shoppingListState, see below -->
+        <tr *ngFor="let Ingredient of (shoppingListState | async).Ingredients; let i = index" style="cursor: pointer"
         (click)="OnEditItem(i)">
 					<td>
-						{{ ingrediant.name }}
+						{{ Ingredient.name }}
 					</td>
 					<td>
-						({{ ingrediant.amount }})
+						({{ Ingredient.amount }})
 					</td>
 				</tr>
 			</table>

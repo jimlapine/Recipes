@@ -1,7 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Ingrediant } from '../../shared/ingrediant.model';
+import { Ingredient } from '../../shared/Ingredient.model';
 import { ShoppingService } from '../../services/shopping.service';
 import { Subscription } from 'rxjs/Subscription';
+import { Store } from '@ngRx/store';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'app-shopping-list',
@@ -10,26 +12,34 @@ import { Subscription } from 'rxjs/Subscription';
 })
 export class ShoppingListComponent implements OnInit, OnDestroy  {
 
-  ingrediants: Ingrediant[];
+  // switched to observable for our state store
+  // Ingredients: Ingredient[];
+  // our observable resolves an and object with an ingreadiant property, which holds an Ingredients array
+  // See the definition in the reducer shopping-list.reducers
+  shoppingListState: Observable<{Ingredients: Ingredient[]}>;
   // This property holds our subscription
-  ingrediantsChangedSubscription: Subscription;
+  IngredientsChangedSubscription: Subscription;
 
-  constructor(private shoppingService: ShoppingService) {  }
+  // the store type conforms to the specification in app.module.ts: StoreModule.forRoot({ shoppinglist: shoppingListReducer })
+  // our shoppingListReducer expects a list of Ingredients, which is passed as the 2nd JavaScript object
+  constructor(private shoppingService: ShoppingService,
+    private store: Store<{ shoppinglist: { Ingredients: Ingredient[] } }> ) {  }
 
   ngOnInit() {
-    this.ingrediants = this.shoppingService.getIngrediants();
+    this.shoppingListState = this.store.select('shoppinglist');
     /*
-      Subscribe to our ingrediant changed event, whiich is used to update our
-      local copy of the ingrediant list
+      Subscribe to our Ingredient changed event, whiich is used to update our
+      local copy of the Ingredient list
     */
-    this.ingrediantsChangedSubscription = this.shoppingService.ingrediantChanged.subscribe(
-      (ingrediants:  Ingrediant[]) => this.ingrediants = ingrediants
-    );
+    // replaced by our observable, returned from our state store
+    // this.IngredientsChangedSubscription = this.shoppingService.IngredientChanged.subscribe(
+    //   (Ingredients:  Ingredient[]) => this.Ingredients = Ingredients
+    // );
   }
 
   ngOnDestroy() {
     // This is a custom observer, so we need to unsubscribe from it, angular does not clean these up for us.
-    this.ingrediantsChangedSubscription.unsubscribe();
+    // this.IngredientsChangedSubscription.unsubscribe();
   }
 
   OnEditItem(index: number) {

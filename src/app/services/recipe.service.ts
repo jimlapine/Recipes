@@ -1,5 +1,5 @@
 import { Recipe } from '../shared/recipe.model';
-import { Ingrediant } from '../shared/ingrediant.model';
+import { Ingredient } from '../shared/ingredient.model';
 import { Injectable } from '@angular/core';
 import { ShoppingService } from './shopping.service';
 import { Subject } from 'rxjs/Subject';
@@ -18,23 +18,23 @@ export class RecipeService {
       'Lovely amazing eggs..',
       'https://tinyurl.com/h4sscp3',
       [
-        new Ingrediant('eggs', 3),
-        new Ingrediant('milk', .25),
-        new Ingrediant('pepper', .025),
-        new Ingrediant('salt', .05)
+        new Ingredient('eggs', 3),
+        new Ingredient('milk', .25),
+        new Ingredient('pepper', .025),
+        new Ingredient('salt', .05)
       ]),
     new Recipe('Hamburger',
       'Hamburger nuff said..',
       'https://tinyurl.com/y92qe5bs',
       [
-        new Ingrediant('bun', 1),
-        new Ingrediant('ground beef', .25),
-        new Ingrediant('lettuce', .25),
-        new Ingrediant('tomato', .25),
-        new Ingrediant('pickle', .5),
-        new Ingrediant('onion', .25),
-        new Ingrediant('pepper', .025),
-        new Ingrediant('salt', .05)
+        new Ingredient('bun', 1),
+        new Ingredient('ground beef', .25),
+        new Ingredient('lettuce', .25),
+        new Ingredient('tomato', .25),
+        new Ingredient('pickle', .5),
+        new Ingredient('onion', .25),
+        new Ingredient('pepper', .025),
+        new Ingredient('salt', .05)
       ])
   ];
 
@@ -47,13 +47,13 @@ export class RecipeService {
     return this.recipes.slice();
   }
 
-  // Add Ingrediants using injected shopping service
-  addIngrediantsToShoppingList(ingrediants: Ingrediant[]) {
-    // I added ingrediants in a for loop
-    // ingrediants.forEach(element => {
-    //   this.shoppingService.AddIngrediant(element);
+  // Add Ingredients using injected shopping service
+  addIngredientsToShoppingList(Ingredients: Ingredient[]) {
+    // I added Ingredients in a for loop
+    // Ingredients.forEach(element => {
+    //   this.shoppingService.AddIngredient(element);
     // });
-    this.shoppingService.addIngrediants(ingrediants);
+    this.shoppingService.addIngredients(Ingredients);
   }
 
   addRecipe(recipe: Recipe) {
@@ -113,9 +113,9 @@ export class RecipeService {
           // const recipes: Recipe[] = response.json();
           for (const recipe of recipes) {
             // if we don't have an igreidants array add an empty one
-            if (!recipe['ingrediants']) {
+            if (!recipe['Ingredients']) {
               // console.log(recipe);
-              recipe['ingrediants'] = [];
+              recipe['Ingredients'] = [];
             }
           }
           return recipes;

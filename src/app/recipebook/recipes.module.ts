@@ -8,7 +8,7 @@ import { RecipeItemComponent } from '../recipebook/recipe-list/recipe-item/recip
 import { RecipeSelectComponent } from '../recipebook/recipe-select/recipe-select.component';
 import { RecipeEditComponent } from '../recipebook/recipe-edit/recipe-edit.component';
 import { RecipesRoutingModule } from '../recipebook/recipe-routing.module';
-import { IngrediantComponent } from '../ingrediant/ingrediant.component';
+import { IngredientComponent } from '../ingredient/ingrediant.component';
 import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
@@ -19,7 +19,7 @@ import { SharedModule } from '../shared/shared.module';
     RecipeItemComponent,
     RecipeSelectComponent,
     RecipeEditComponent,
-    IngrediantComponent
+    IngredientComponent
   ],
   imports: [
     // Always import this module, it gives you access to common directives

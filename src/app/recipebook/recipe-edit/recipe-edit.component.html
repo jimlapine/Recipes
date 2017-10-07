@@ -57,33 +57,33 @@
 
         <div class="panel panel-success">
           <div class="panel-heading">
-            <label for="ingrediants">Ingrediants</label>
+            <label for="Ingredients">Ingredients</label>
           </div>
           <!-- add formArrayName to div that wraps our controls -->
           <!-- style="height:200px; overflow-x: hidden; overflow-y: scroll;" -->
           <div class="row panel-body"style="height: 300px; overflow-x:scroll">
-            <div class="col-xs-12" formArrayName="ingrediants">
-              <!-- Get the controls in our ingrediant controls -->
+            <div class="col-xs-12" formArrayName="Ingredients">
+              <!-- Get the controls in our Ingredient controls -->
               <div class="row">
                 <div class="col-xs-7"><label for="name">Name</label></div>
                 <div class="col-xs-3"><label for="amount">Amount</label></div>
               </div>
               <div class="row form-group"
-                *ngFor="let ingredientCtrl of recipeForm.controls['ingrediants']['controls']; let i = index"
+                *ngFor="let ingredientCtrl of recipeForm.controls['Ingredients']['controls']; let i = index"
                 [formGroupName]="i">
                 <div class="col-xs-7">
-                  <!-- bind to ingrediant name -->
+                  <!-- bind to Ingredient name -->
                   <input type="text" class="form-control"
                     formControlName="name">
                 </div>
                 <div class="col-xs-3">
-                  <!-- bind to ingrediant amount -->
+                  <!-- bind to Ingredient amount -->
                   <input type="number" class="form-control"
                     formControlName="amount">
                 </div>
                 <div class="col-xs-2">
                   <button class="btn btn-danger" type="button"
-                    (click)="onDeleteIngrediant(i)">X</button>
+                    (click)="onDeleteIngredient(i)">X</button>
                 </div>
               </div>
             </div>
@@ -91,7 +91,7 @@
           <div class="panel-footer clearfix">
             <button class="btn btn-success" type="button"
               (click)="onAddIngediant()">
-              Add Ingrediant
+              Add Ingredient
             </button>
           </div>
         </div>

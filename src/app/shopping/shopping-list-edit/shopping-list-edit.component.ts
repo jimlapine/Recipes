@@ -6,7 +6,7 @@ import {
   ElementRef } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Subscription } from 'rxjs/Subscription';
-import { Ingrediant } from '../../shared/ingrediant.model';
+import { Ingredient } from '../../shared/ingredient.model';
 import { ShoppingService } from '../../services/shopping.service';
 
 @Component({
@@ -15,11 +15,11 @@ import { ShoppingService } from '../../services/shopping.service';
   styleUrls: ['./shopping-list-edit.component.css']
 })
 export class ShoppingListEditComponent implements OnInit, OnDestroy {
-  @ViewChild('ingrediantForm') ingrediantForm: NgForm;
+  @ViewChild('IngredientForm') IngredientForm: NgForm;
   subscription: Subscription;
   editMode = false;
   editedItemIndex: number;
-  editedItem: Ingrediant;
+  editedItem: Ingredient;
 
   constructor(private shoppingService: ShoppingService) { }
 
@@ -32,9 +32,9 @@ export class ShoppingListEditComponent implements OnInit, OnDestroy {
           this.editMode = true;
           this.editedItemIndex = index;
           // Grab the edited item from the shopping service
-          this.editedItem = this.shoppingService.getIngrediant(index);
+          this.editedItem = this.shoppingService.getIngredient(index);
           // Assign the edited values to our form
-          this.ingrediantForm.setValue({name: this.editedItem.name, amount: this.editedItem.amount});
+          this.IngredientForm.setValue({name: this.editedItem.name, amount: this.editedItem.amount});
         }
       );
   }
@@ -45,31 +45,31 @@ export class ShoppingListEditComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
-    // console.log(`ingrediantForm: ${ this.ingrediantForm.value}`);
-    // console.log(`name: ${ this.ingrediantForm.value.name } amount: ${ this.ingrediantForm.value.amount }`);
+    // console.log(`IngredientForm: ${ this.IngredientForm.value}`);
+    // console.log(`name: ${ this.IngredientForm.value.name } amount: ${ this.IngredientForm.value.amount }`);
 
-    const name = this.ingrediantForm.value.name;
-    const amount = !isNaN(this.ingrediantForm.value.amount) ? parseFloat(this.ingrediantForm.value.amount) : 0;
-    const ingrediant = new Ingrediant(name, amount);
+    const name = this.IngredientForm.value.name;
+    const amount = !isNaN(this.IngredientForm.value.amount) ? parseFloat(this.IngredientForm.value.amount) : 0;
+    const ingredient = new Ingredient(name, amount);
 
     if (!this.editMode) {
-      this.shoppingService.addIngrediant(ingrediant);
+      this.shoppingService.addIngredient(ingredient);
     } else {
-      this.shoppingService.updateIngrediant(this.editedItemIndex, ingrediant);
+      this.shoppingService.updateIngredient(this.editedItemIndex, ingredient);
       this.editMode = false;
     }
 
-    this.ingrediantForm.reset();
+    this.IngredientForm.reset();
   }
 
   onClear() {
-    this.ingrediantForm.reset();
+    this.IngredientForm.reset();
   }
 
   onDelete() {
-    if (confirm('Are you sure that you want to delete this ingrediant?')) {
-      this.shoppingService.deleteIngrediant(this.editedItemIndex);
-      this.ingrediantForm.reset();
+    if (confirm('Are you sure that you want to delete this Ingredient?')) {
+      this.shoppingService.deleteIngredient(this.editedItemIndex);
+      this.IngredientForm.reset();
       this.editMode = false;
     }
   }

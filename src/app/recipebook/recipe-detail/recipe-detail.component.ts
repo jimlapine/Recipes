@@ -35,12 +35,12 @@ export class RecipeDetailComponent implements OnInit {
 
   toShoppingList() {
     // I directly utilized the shopping service
-    // this.details.ingrediants.forEach(element => {
-    //   this.shoppingService.AddIngrediant(element);
+    // this.details.Ingredients.forEach(element => {
+    //   this.shoppingService.AddIngredient(element);
     // });
 
     // Class example injected shopping service into recipe service
-    this.recipeServce.addIngrediantsToShoppingList(this.details.ingrediants);
+    this.recipeServce.addIngredientsToShoppingList(this.details.Ingredients);
   }
 
   onDeleteRecipe() {

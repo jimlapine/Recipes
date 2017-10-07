@@ -1,70 +1,72 @@
-import { Ingrediant } from '../shared/ingrediant.model';
+import { Ingredient } from '../shared/Ingredient.model';
 import { Subject } from 'rxjs/Subject';
 
 export class ShoppingService {
   /*
     Create an event emitter to inform other components that data has changed
-    We do this, because our components have a copy of the ingrediant array
+    We do this, because our components have a copy of the Ingredient array
     not the original
   */
 
   // Subject is both an observable and Observer
-  ingrediantChanged = new Subject<Ingrediant[]>();
+  IngredientChanged = new Subject<Ingredient[]>();
+  // Introducting Reducers, requires install of another package: @ngrx/store
+  // npm install --save @ngrx/store
   startedEditing = new Subject<number>();
-  private ingrediants: Ingrediant[] = [];
+  private Ingredients: Ingredient[] = [];
 
-  getIngrediants() {
-    return this.ingrediants.slice();
+  getIngredients() {
+    return this.Ingredients.slice();
   }
 
-  getIngrediant(index: number) {
-    return this.ingrediants[index];
+  getIngredient(index: number) {
+    return this.Ingredients[index];
   }
 
-  addIngrediant(ingrediant: Ingrediant) {
-      this.ingrediants.push(ingrediant);
-      this.ingrediantChanged.next(this.ingrediants.slice());
+  addIngredient(Ingredient: Ingredient) {
+      this.Ingredients.push(Ingredient);
+      this.IngredientChanged.next(this.Ingredients.slice());
   }
 
-  updateIngrediant(index: number, ingrediant: Ingrediant) {
-    // Update Ingrediant
-    this.ingrediants[index] = ingrediant;
-    // Emit our new ingrediant list
-    this.ingrediantChanged.next(this.ingrediants.slice());
+  updateIngredient(index: number, Ingredient: Ingredient) {
+    // Update Ingredient
+    this.Ingredients[index] = Ingredient;
+    // Emit our new Ingredient list
+    this.IngredientChanged.next(this.Ingredients.slice());
   }
 
-  deleteIngrediant(index: number) {
-    // Update Ingrediant
-    this.ingrediants.splice(index, 1);
-    // Emit our new ingrediant list
-    this.ingrediantChanged.next(this.ingrediants.slice());
+  deleteIngredient(index: number) {
+    // Update Ingredient
+    this.Ingredients.splice(index, 1);
+    // Emit our new Ingredient list
+    this.IngredientChanged.next(this.Ingredients.slice());
   }
 
-  addIngrediants(ingrediants: Ingrediant[]) {
+  addIngredients(Ingredients: Ingredient[]) {
     // ... ES 6 feature, spread operator, separates the array into individual item
-    // this.ingrediants.push(...ingrediants);
+    // this.Ingredients.push(...Ingredients);
 
     // Sort our incomming list
-    ingrediants.sort(this.compare);
+    Ingredients.sort(this.compare);
 
     // Ignore dups
-    if (this.ingrediants.length === 0) {
-      this.ingrediants.push(...ingrediants);
+    if (this.Ingredients.length === 0) {
+      this.Ingredients.push(...Ingredients);
     } else {
-      ingrediants.forEach(element => {
-        if (this.ingrediants.findIndex(item => item.name === element.name) < 0) {
-          this.ingrediants.push(element);
+      Ingredients.forEach(element => {
+        if (this.Ingredients.findIndex(item => item.name === element.name) < 0) {
+          this.Ingredients.push(element);
         }
       });
     }
 
     // Sort our outlist
-    this.ingrediants.sort(this.compare);
+    this.Ingredients.sort(this.compare);
 
-    this.ingrediantChanged.next(this.ingrediants.slice());
+    this.IngredientChanged.next(this.Ingredients.slice());
   }
 
-  compare(a: Ingrediant, b: Ingrediant) {
+  compare(a: Ingredient, b: Ingredient) {
     if (a.name < b.name) {
       return -1;
     }
