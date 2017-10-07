@@ -8,7 +8,9 @@ import { NgForm } from '@angular/forms';
 import { Subscription } from 'rxjs/Subscription';
 import { Ingredient } from '../../shared/ingredient.model';
 import { ShoppingService } from '../../services/shopping.service';
-
+import { Store } from '@ngRx/store';
+// bundles exverything exprted from shopping-list.actions into one JavaScript object
+import * as ShoppingListActions from '../ngRxStore/shopping-list.actions';
 @Component({
   selector: 'app-shopping-list-edit',
   templateUrl: './shopping-list-edit.component.html',
@@ -21,7 +23,10 @@ export class ShoppingListEditComponent implements OnInit, OnDestroy {
   editedItemIndex: number;
   editedItem: Ingredient;
 
-  constructor(private shoppingService: ShoppingService) { }
+  // the store type conforms to the specification in app.module.ts: StoreModule.forRoot({ shoppinglist: shoppingListReducer })
+  // our shoppingListReducer expects a list of Ingredients, which is passed as the 2nd JavaScript object
+  constructor(private shoppingService: ShoppingService,
+    private store: Store<{shoppingList: { ingredient: Ingredient[]}}>) { }
 
   ngOnInit() {
     // Subscribe to our startedEditing subject, which will contain the index of what we are editing
@@ -53,7 +58,9 @@ export class ShoppingListEditComponent implements OnInit, OnDestroy {
     const ingredient = new Ingredient(name, amount);
 
     if (!this.editMode) {
-      this.shoppingService.addIngredient(ingredient);
+      // dispatch our custom action AddIngredient, passing in our payload
+      this.store.dispatch(new ShoppingListActions.AddIngredient(ingredient));
+      // this.shoppingService.addIngredient(ingredient);
     } else {
       this.shoppingService.updateIngredient(this.editedItemIndex, ingredient);
       this.editMode = false;

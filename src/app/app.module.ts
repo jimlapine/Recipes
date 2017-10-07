@@ -12,7 +12,7 @@ import { ShoppingModule } from './shopping/shopping.module';
 import { CoreModule } from './core/core.module';
 // Add the ngRx stroe module for out application state store
 import { StoreModule } from '@ngRx/store';
-import { shoppingListReducer } from './shopping/shopping-list/ngRxStore/shopping-list.reducers';
+import { shoppingListReducer } from './shopping/ngRxStore/shopping-list.reducers';
 @NgModule({
   declarations: [
     AppComponent,

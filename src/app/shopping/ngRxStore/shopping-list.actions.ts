@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { Ingredient } from '../../../shared/Ingredient.model';
+import { Ingredient } from '../../shared/ingredient.model';
 // Action Type
 export const ADD_Ingredient = 'ADD_Ingredient';
 
@@ -9,7 +9,10 @@ export class AddIngredient implements Action {
   // assign the action type for this action AddIngredient
   readonly type = ADD_Ingredient;
   // Add our custom property which will be a payload containing an Ingredient
-  payload: Ingredient
+  // payload: Ingredient;
+
+  // Added payload to constuctor to allow it to be easily passed in
+  constructor(public payload: Ingredient) { }
 }
 
 // export the type(s) we are supporting

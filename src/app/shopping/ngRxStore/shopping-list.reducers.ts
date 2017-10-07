@@ -1,6 +1,6 @@
 // bundles exverything exprted from shopping-list.actions into one JavaScript object
 import * as ShoppingListActions from './shopping-list.actions';
-import { Ingredient } from '../../../shared/ingredient.model';
+import { Ingredient } from '../../shared/ingredient.model';
 
 // Create intial state, since it is null at first
 const initialIngredients: Ingredient[] = [
@@ -8,7 +8,7 @@ const initialIngredients: Ingredient[] = [
   new Ingredient('Tomatoes', 10),
 ];
 const intialState = {
-  Ingredients: initialIngredients,
+  ingredients: initialIngredients,
 }
 
 // we set an intial state which by default is an empty array and use our own action which includes a payload
@@ -20,7 +20,7 @@ export function shoppingListReducer(state = intialState, action: ShoppingListAct
       // we return the state and the list of ingrients, using the es6 spread operator
       return {
         ...state,
-        Ingredients: [...state.Ingredients, action.payload]
+        ingredients: [...state.ingredients, action.payload]
       };
     default:
       return state;

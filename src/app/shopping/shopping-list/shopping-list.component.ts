@@ -16,14 +16,14 @@ export class ShoppingListComponent implements OnInit, OnDestroy  {
   // Ingredients: Ingredient[];
   // our observable resolves an and object with an ingreadiant property, which holds an Ingredients array
   // See the definition in the reducer shopping-list.reducers
-  shoppingListState: Observable<{Ingredients: Ingredient[]}>;
+  shoppingListState: Observable<{ingredients: Ingredient[]}>;
   // This property holds our subscription
   IngredientsChangedSubscription: Subscription;
 
   // the store type conforms to the specification in app.module.ts: StoreModule.forRoot({ shoppinglist: shoppingListReducer })
   // our shoppingListReducer expects a list of Ingredients, which is passed as the 2nd JavaScript object
   constructor(private shoppingService: ShoppingService,
-    private store: Store<{ shoppinglist: { Ingredients: Ingredient[] } }> ) {  }
+    private store: Store<{ shoppinglist: { ingredients: Ingredient[] } }> ) {  }
 
   ngOnInit() {
     this.shoppingListState = this.store.select('shoppinglist');
