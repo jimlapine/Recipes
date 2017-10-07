@@ -3,7 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { FormGroup, FormControl, FormArray, Validators } from '@angular/forms';
 import { RecipeService } from '../../services/recipe.service';
 import { Recipe } from '../../shared/recipe.model';
-import { Ingredient } from '../../shared/Ingredient.model';
+import { Ingredient } from '../../shared/ingredient.model';
 
 @Component({
   selector: 'app-recipe-edit',
@@ -37,16 +37,17 @@ export class RecipeEditComponent implements OnInit {
       name: '',
       imgPath: '',
       description: '',
-      Ingredients: []
+      ingredients: []
     };
     const recipeIngredients = new FormArray([]);
 
     // Get recipe if we are in edit mode
     if (this.editMode) {
       this.recipe = this.recipeService.getRecipe(this.recipeID);
-      if (this.recipe.Ingredients.length > 0) {
-        for (const Ingredient of this.recipe.Ingredients) {
-          recipeIngredients.push(this.IngredientGroup(Ingredient));
+      // console.log('this.recipe: ', this.recipe);
+      if (this.recipe.ingredients.length > 0) {
+        for (const ingredient of this.recipe.ingredients) {
+          recipeIngredients.push(this.IngredientGroup(ingredient));
         }
       }
     }
@@ -57,7 +58,7 @@ export class RecipeEditComponent implements OnInit {
       'imgPath': new FormControl(this.recipe.imgPath, [Validators.required,
         Validators.pattern(urlPattern)]),
       'description': new FormControl(this.recipe.description, Validators.required),
-      'Ingredients': recipeIngredients
+      'ingredients': recipeIngredients
     });
   }
 
@@ -69,25 +70,25 @@ export class RecipeEditComponent implements OnInit {
   }
 
   // Creates new Ingredient form group
-  IngredientGroup(Ingredient: Ingredient): FormGroup {
+  IngredientGroup(ingredient: Ingredient): FormGroup {
     const numberPattern = /(^\d*\.?\d*[1-9]+\d*$)|(^[1-9]+\d*\.\d*$)/;
 
     return new FormGroup({
-      'name': new FormControl(Ingredient != null ? Ingredient.name : null, Validators.required),
-      'amount': new FormControl(Ingredient != null ? Ingredient.amount : null, [Validators.required,
+      'name': new FormControl(ingredient != null ? ingredient.name : null, Validators.required),
+      'amount': new FormControl(ingredient != null ? ingredient.amount : null, [Validators.required,
         // Add regular expression validator
         Validators.pattern(numberPattern)])
     })
   }
 
-  onAddIngediant() {
-    (<FormArray>this.recipeForm.get('Ingredients')).insert(0, this.IngredientGroup(null));
+  onAddIngredient() {
+    (<FormArray>this.recipeForm.get('ingredients')).insert(0, this.IngredientGroup(null));
   }
 
   onDeleteIngredient(index: number) {
     if (confirm('Are you sure that you want to delete this Ingredient?')) {
       // remove deleted control
-      (<FormArray>this.recipeForm.get('Ingredients')).removeAt(index);
+      (<FormArray>this.recipeForm.get('ingredients')).removeAt(index);
     }
   }
 

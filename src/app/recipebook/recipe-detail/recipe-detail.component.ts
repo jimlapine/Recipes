@@ -2,7 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Recipe } from '../../shared/recipe.model';
 import { RecipeService } from '../../services/recipe.service';
 import { ActivatedRoute, Router } from '@angular/router';
-
+import { Store } from '@ngRx/store';
+import { Ingredient } from '../../shared/ingredient.model';
+// bundles exverything exprted from shopping-list.actions into one JavaScript object
+import * as ShoppingListActions from '../../shopping/ngRxStore/shopping-list.actions';
 @Component({
   selector: 'app-recipe-detail',
   templateUrl: './recipe-detail.component.html',
@@ -11,7 +14,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class RecipeDetailComponent implements OnInit {
   details: Recipe;
   id: number;
-  constructor(private recipeServce: RecipeService, private router: Router, private route: ActivatedRoute) { }
+  constructor(private recipeServce: RecipeService, private router: Router,
+    private route: ActivatedRoute, private store: Store<{ shoppinglist: { ingredients: Ingredient[] } }>) { }
 
   ngOnInit() {
     // Subscribe to Params being passed in
@@ -40,7 +44,9 @@ export class RecipeDetailComponent implements OnInit {
     // });
 
     // Class example injected shopping service into recipe service
-    this.recipeServce.addIngredientsToShoppingList(this.details.Ingredients);
+    // this.recipeServce.addIngredientsToShoppingList(this.details.ingredients);
+    // console.log('this.details.ingredients: ', this.details.ingredients);
+    this.store.dispatch(new ShoppingListActions.AddIngredients(this.details.ingredients));
   }
 
   onDeleteRecipe() {

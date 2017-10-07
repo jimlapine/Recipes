@@ -4,12 +4,12 @@ export class Recipe {
   public name: string;
   public description: string;
   public imgPath: string;
-  public Ingredients: Ingredient[];
+  public ingredients: Ingredient[];
 
-  constructor(name: string, description: string, imgPath: string, Ingredients: Ingredient[]) {
+  constructor(name: string, description: string, imgPath: string, ingredients: Ingredient[]) {
     this.name = name;
     this.description = description;
     this.imgPath = imgPath;
-    this.Ingredients = Ingredients;
+    this.ingredients = ingredients;
   }
 }

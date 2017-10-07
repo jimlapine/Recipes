@@ -4,8 +4,8 @@ import { Ingredient } from '../../shared/ingredient.model';
 
 // Create intial state, since it is null at first
 const initialIngredients: Ingredient[] = [
-  new Ingredient('Apples', 5),
-  new Ingredient('Tomatoes', 10),
+  // new Ingredient('Apples', 5),
+  // new Ingredient('Tomatoes', 10),
 ];
 const intialState = {
   ingredients: initialIngredients,
@@ -16,11 +16,17 @@ export function shoppingListReducer(state = intialState, action: ShoppingListAct
   // action types are strings
   switch (action.type) {
     // we stored the action type string in the ShoppingListActions.ADD_Ingredient constant
-    case ShoppingListActions.ADD_Ingredient:
+    case ShoppingListActions.ADD_INGREDIENT:
       // we return the state and the list of ingrients, using the es6 spread operator
       return {
         ...state,
         ingredients: [...state.ingredients, action.payload]
+      };
+      case ShoppingListActions.ADD_INGREDIENTS:
+      // we return the state and the list of ingrients, using the es6 spread operator
+      return {
+        ...state,
+        ingredients: [...state.ingredients, ...action.payload]
       };
     default:
       return state;

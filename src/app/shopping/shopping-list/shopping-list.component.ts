@@ -1,7 +1,7 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Ingredient } from '../../shared/Ingredient.model';
 import { ShoppingService } from '../../services/shopping.service';
-import { Subscription } from 'rxjs/Subscription';
+// import { Subscription } from 'rxjs/Subscription';
 import { Store } from '@ngRx/store';
 import { Observable } from 'rxjs/Observable';
 
@@ -10,7 +10,7 @@ import { Observable } from 'rxjs/Observable';
   templateUrl: './shopping-list.component.html',
   styleUrls: ['./shopping-list.component.css']
 })
-export class ShoppingListComponent implements OnInit, OnDestroy  {
+export class ShoppingListComponent implements OnInit  {
 
   // switched to observable for our state store
   // Ingredients: Ingredient[];
@@ -18,7 +18,7 @@ export class ShoppingListComponent implements OnInit, OnDestroy  {
   // See the definition in the reducer shopping-list.reducers
   shoppingListState: Observable<{ingredients: Ingredient[]}>;
   // This property holds our subscription
-  IngredientsChangedSubscription: Subscription;
+  // IngredientsChangedSubscription: Subscription;
 
   // the store type conforms to the specification in app.module.ts: StoreModule.forRoot({ shoppinglist: shoppingListReducer })
   // our shoppingListReducer expects a list of Ingredients, which is passed as the 2nd JavaScript object
@@ -37,10 +37,10 @@ export class ShoppingListComponent implements OnInit, OnDestroy  {
     // );
   }
 
-  ngOnDestroy() {
-    // This is a custom observer, so we need to unsubscribe from it, angular does not clean these up for us.
-    // this.IngredientsChangedSubscription.unsubscribe();
-  }
+  // ngOnDestroy() {
+  //   // This is a custom observer, so we need to unsubscribe from it, angular does not clean these up for us.
+  //   // this.IngredientsChangedSubscription.unsubscribe();
+  // }
 
   OnEditItem(index: number) {
     // Use subject and emit an observable which is the index of the item we are editing

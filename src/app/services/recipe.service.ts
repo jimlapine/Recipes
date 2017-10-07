@@ -48,12 +48,12 @@ export class RecipeService {
   }
 
   // Add Ingredients using injected shopping service
-  addIngredientsToShoppingList(Ingredients: Ingredient[]) {
+  addIngredientsToShoppingList(ingredients: Ingredient[]) {
     // I added Ingredients in a for loop
     // Ingredients.forEach(element => {
     //   this.shoppingService.AddIngredient(element);
     // });
-    this.shoppingService.addIngredients(Ingredients);
+    this.shoppingService.addIngredients(ingredients);
   }
 
   addRecipe(recipe: Recipe) {
@@ -113,9 +113,9 @@ export class RecipeService {
           // const recipes: Recipe[] = response.json();
           for (const recipe of recipes) {
             // if we don't have an igreidants array add an empty one
-            if (!recipe['Ingredients']) {
+            if (!recipe['ingredients']) {
               // console.log(recipe);
-              recipe['Ingredients'] = [];
+              recipe['ingredients'] = [];
             }
           }
           return recipes;
