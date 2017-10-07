@@ -28,6 +28,12 @@ export function shoppingListReducer(state = intialState, action: ShoppingListAct
         ...state,
         ingredients: [...state.ingredients, ...action.payload]
       };
+      case ShoppingListActions.DELETE_INGREDIENT:
+      // we return the state and the list of ingrients, using the es6 spread operator
+      return {
+        ...state,
+        ingredients: [...state.ingredients.splice(action.payload, 1)]
+      };
     default:
       return state;
   }

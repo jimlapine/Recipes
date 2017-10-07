@@ -1,7 +1,5 @@
-import { Recipe } from '../shared/recipe.model';
-import { Ingredient } from '../shared/ingredient.model';
 import { Injectable } from '@angular/core';
-import { ShoppingService } from './shopping.service';
+// import { ShoppingService } from './shopping.service';
 import { Subject } from 'rxjs/Subject';
 // Imports the new HTTP Client for angular
 import { HttpClient, HttpHeaders, HttpParams, HttpRequest } from '@angular/common/http';
@@ -9,6 +7,9 @@ import { HttpClient, HttpHeaders, HttpParams, HttpRequest } from '@angular/commo
 import 'rxjs/Rx';
 import { Observable } from 'rxjs/Observable';
 import { AuthentificationService } from '../auth/auth.service';
+import * as ShoppingListActions from '../shopping/ngRxStore/shopping-list.actions';
+import { Recipe } from '../shared/recipe.model';
+import { Ingredient } from '../shared/ingredient.model';
 @Injectable()
 export class RecipeService {
 
@@ -39,21 +40,13 @@ export class RecipeService {
   ];
 
   // Inject shopping service
-  constructor(private shoppingService: ShoppingService,
+  constructor(
+    // private shoppingService: ShoppingService,
     private authService: AuthentificationService, private http: HttpClient) { }
 
   getRecipes() {
     // Returns a copy of the recipe list
     return this.recipes.slice();
-  }
-
-  // Add Ingredients using injected shopping service
-  addIngredientsToShoppingList(ingredients: Ingredient[]) {
-    // I added Ingredients in a for loop
-    // Ingredients.forEach(element => {
-    //   this.shoppingService.AddIngredient(element);
-    // });
-    this.shoppingService.addIngredients(ingredients);
   }
 
   addRecipe(recipe: Recipe) {

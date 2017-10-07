@@ -17,7 +17,7 @@ import * as ShoppingListActions from '../ngRxStore/shopping-list.actions';
   styleUrls: ['./shopping-list-edit.component.css']
 })
 export class ShoppingListEditComponent implements OnInit, OnDestroy {
-  @ViewChild('IngredientForm') IngredientForm: NgForm;
+  @ViewChild('ingredientForm') ingredientForm: NgForm;
   subscription: Subscription;
   editMode = false;
   editedItemIndex: number;
@@ -39,7 +39,7 @@ export class ShoppingListEditComponent implements OnInit, OnDestroy {
           // Grab the edited item from the shopping service
           this.editedItem = this.shoppingService.getIngredient(index);
           // Assign the edited values to our form
-          this.IngredientForm.setValue({name: this.editedItem.name, amount: this.editedItem.amount});
+          this.ingredientForm.setValue({name: this.editedItem.name, amount: this.editedItem.amount});
         }
       );
   }
@@ -53,8 +53,8 @@ export class ShoppingListEditComponent implements OnInit, OnDestroy {
     // console.log(`IngredientForm: ${ this.IngredientForm.value}`);
     // console.log(`name: ${ this.IngredientForm.value.name } amount: ${ this.IngredientForm.value.amount }`);
 
-    const name = this.IngredientForm.value.name;
-    const amount = !isNaN(this.IngredientForm.value.amount) ? parseFloat(this.IngredientForm.value.amount) : 0;
+    const name = this.ingredientForm.value.name;
+    const amount = !isNaN(this.ingredientForm.value.amount) ? parseFloat(this.ingredientForm.value.amount) : 0;
     const ingredient = new Ingredient(name, amount);
 
     if (!this.editMode) {
@@ -66,17 +66,19 @@ export class ShoppingListEditComponent implements OnInit, OnDestroy {
       this.editMode = false;
     }
 
-    this.IngredientForm.reset();
+    this.ingredientForm.reset();
   }
 
   onClear() {
-    this.IngredientForm.reset();
+    this.ingredientForm.reset();
   }
 
   onDelete() {
     if (confirm('Are you sure that you want to delete this Ingredient?')) {
-      this.shoppingService.deleteIngredient(this.editedItemIndex);
-      this.IngredientForm.reset();
+      // this.shoppingService.deleteIngredient(this.editedItemIndex);
+      // dispatch our custom action AddIngredient, passing in our payload
+      this.store.dispatch(new ShoppingListActions.DeleteIngredient(this.editedItemIndex));
+      this.ingredientForm.reset();
       this.editMode = false;
     }
   }

@@ -3,9 +3,9 @@ import { Recipe } from '../../shared/recipe.model';
 import { RecipeService } from '../../services/recipe.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngRx/store';
-import { Ingredient } from '../../shared/ingredient.model';
 // bundles exverything exprted from shopping-list.actions into one JavaScript object
 import * as ShoppingListActions from '../../shopping/ngRxStore/shopping-list.actions';
+import { Ingredient } from '../../shared/ingredient.model';
 @Component({
   selector: 'app-recipe-detail',
   templateUrl: './recipe-detail.component.html',
@@ -45,8 +45,8 @@ export class RecipeDetailComponent implements OnInit {
 
     // Class example injected shopping service into recipe service
     // this.recipeServce.addIngredientsToShoppingList(this.details.ingredients);
-    // console.log('this.details.ingredients: ', this.details.ingredients);
     this.store.dispatch(new ShoppingListActions.AddIngredients(this.details.ingredients));
+    // console.log('this.details.ingredients: ', this.details.ingredients);
   }
 
   onDeleteRecipe() {

@@ -1,8 +1,8 @@
 <div class="row">
 	<div class="col-xs-12">
     <form
-      id="IngredientForm"
-      #IngredientForm="ngForm"
+      id="ingredientForm"
+      #ingredientForm="ngForm"
       (ngSubmit)="onSubmit()">
 			<div class="row">
 				<div class="col-sm-5 form-group">
@@ -26,7 +26,7 @@
         <button
           type="submit"
           class="btn btn-success"
-          [disabled]="!IngredientForm.valid">
+          [disabled]="!ingredientForm.valid">
 					  {{ editMode ? 'Update': 'Add'}}
 				</button>
         <button
