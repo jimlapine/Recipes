@@ -71,7 +71,7 @@ export class AuthentificationService {
             hasLocalStorageUser = true;
             const localStorageObject = JSON.parse(localStorage[key]);
             const token = localStorageObject.stsTokenManager.accessToken;
-            console.log(`token: ${token}`);
+            // console.log(`token: ${token}`);
             // console.log(token);
             this.token = token;
           }

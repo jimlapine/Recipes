@@ -4,39 +4,46 @@ import { Ingredient } from '../../shared/ingredient.model';
 export const ADD_INGREDIENT = 'ADD_INGREDIENT';
 export const ADD_INGREDIENTS = 'ADD_INGREDIENTS';
 export const DELETE_INGREDIENT = 'DELETE_INGREDIENT';
-// creating our our action, since by default actions only contain types,
-// ours now contains a payload as well
-export class AddIngredient implements Action {
-  // assign the action type for this action AddIngredient
-  readonly type = ADD_INGREDIENT;
-  // Add our custom property which will be a payload containing an Ingredient
-  // payload: Ingredient;
+export const UPDATE_INGREDIENT = 'UPDATE_INGREDIENT';
+export const START_EDIT = 'START_EDIT';
+export const STOP_EDIT = 'STOP_EDIT';
 
-  // Added payload to constuctor to allow it to be easily passed in
-  constructor(public payload: Ingredient) { }
+export class AddIngredient implements Action {
+  readonly type = ADD_INGREDIENT;
+
+  constructor(public payload: Ingredient) {}
 }
 
 export class AddIngredients implements Action {
-  // assign the action type for this action AddIngredient
   readonly type = ADD_INGREDIENTS;
-  // Add our custom property which will be a payload containing an Ingredient
-  // payload: Ingredient[];
 
-  // Added payload to constuctor to allow it to be easily passed in
-  constructor(public payload: Ingredient[]) { }
+  constructor(public payload: Ingredient[]) {}
+}
+
+export class UpdateIngredient implements Action {
+  readonly type = UPDATE_INGREDIENT;
+
+  constructor(public payload: {ingredient: Ingredient}) {}
 }
 
 export class DeleteIngredient implements Action {
-  // assign the action type for this action AddIngredient
   readonly type = DELETE_INGREDIENT;
-  // Add our custom property which will be a payload containing an Ingredient
-  // payload: number;
-
-  // Added payload to constuctor to allow it to be easily passed in
-  constructor(public payload: number) { }
 }
 
-// export the type(s) we are supporting
-// | is the union operator
-export type ShoppingListActions = AddIngredient | AddIngredients | DeleteIngredient;
+export class StartEdit implements Action {
+  readonly type = START_EDIT;
 
+  constructor(public payload: number) {}
+}
+
+export class StopEdit implements Action {
+  readonly type = STOP_EDIT;
+}
+
+export type ShoppingListActions =
+  AddIngredient |
+  AddIngredients |
+  UpdateIngredient |
+  DeleteIngredient |
+  StartEdit |
+  StopEdit;

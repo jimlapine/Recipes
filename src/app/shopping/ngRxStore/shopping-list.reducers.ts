@@ -2,37 +2,70 @@
 import * as ShoppingListActions from './shopping-list.actions';
 import { Ingredient } from '../../shared/ingredient.model';
 
-// Create intial state, since it is null at first
-const initialIngredients: Ingredient[] = [
-  // new Ingredient('Apples', 5),
-  // new Ingredient('Tomatoes', 10),
-];
-const intialState = {
-  ingredients: initialIngredients,
+// Create a AppState Interface, which has a shopping list state interface
+export interface AppState {
+  shoppingList: State
 }
 
-// we set an intial state which by default is an empty array and use our own action which includes a payload
-export function shoppingListReducer(state = intialState, action: ShoppingListActions.ShoppingListActions) {
-  // action types are strings
+export interface State {
+  ingredients: Ingredient[];
+  editedIngredient: Ingredient;
+  editedIngredientIndex: number;
+}
+
+const initialState: State = {
+  ingredients: [],
+  editedIngredient: null,
+  editedIngredientIndex: -1
+};
+
+export function shoppingListReducer(state = initialState, action: ShoppingListActions.ShoppingListActions) {
   switch (action.type) {
-    // we stored the action type string in the ShoppingListActions.ADD_Ingredient constant
     case ShoppingListActions.ADD_INGREDIENT:
-      // we return the state and the list of ingrients, using the es6 spread operator
       return {
         ...state,
         ingredients: [...state.ingredients, action.payload]
       };
-      case ShoppingListActions.ADD_INGREDIENTS:
-      // we return the state and the list of ingrients, using the es6 spread operator
+    case ShoppingListActions.ADD_INGREDIENTS:
       return {
         ...state,
         ingredients: [...state.ingredients, ...action.payload]
       };
-      case ShoppingListActions.DELETE_INGREDIENT:
-      // we return the state and the list of ingrients, using the es6 spread operator
+    case ShoppingListActions.UPDATE_INGREDIENT:
+      const ingredient = state.ingredients[state.editedIngredientIndex];
+      const updatedIngredient = {
+        ...ingredient,
+        ...action.payload.ingredient
+      };
+      const ingredients = [...state.ingredients];
+      ingredients[state.editedIngredientIndex] = updatedIngredient;
       return {
         ...state,
-        ingredients: [...state.ingredients.splice(action.payload, 1)]
+        ingredients: ingredients,
+        editedIngredient: null,
+        editedIngredientIndex: -1
+      };
+    case ShoppingListActions.DELETE_INGREDIENT:
+      const oldIngredients = [...state.ingredients];
+      oldIngredients.splice(state.editedIngredientIndex, 1);
+      return {
+        ...state,
+        ingredients: oldIngredients,
+        editedIngredient: null,
+        editedIngredientIndex: -1
+      };
+    case ShoppingListActions.START_EDIT:
+      const editedIngredient = {...state.ingredients[action.payload]};
+      return {
+        ...state,
+        editedIngredient: editedIngredient,
+        editedIngredientIndex: action.payload
+      };
+    case ShoppingListActions.STOP_EDIT:
+      return {
+        ...state,
+        editedIngredient: null,
+        editedIngredientIndex: -1
       };
     default:
       return state;

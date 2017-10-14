@@ -5,7 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngRx/store';
 // bundles exverything exprted from shopping-list.actions into one JavaScript object
 import * as ShoppingListActions from '../../shopping/ngRxStore/shopping-list.actions';
-import { Ingredient } from '../../shared/ingredient.model';
+import * as fromShoppingList from '../../shopping/ngRxStore/shopping-list.reducers';
 @Component({
   selector: 'app-recipe-detail',
   templateUrl: './recipe-detail.component.html',
@@ -15,7 +15,7 @@ export class RecipeDetailComponent implements OnInit {
   details: Recipe;
   id: number;
   constructor(private recipeServce: RecipeService, private router: Router,
-    private route: ActivatedRoute, private store: Store<{ shoppinglist: { ingredients: Ingredient[] } }>) { }
+    private route: ActivatedRoute, private store: Store<fromShoppingList.AppState>) { }
 
   ngOnInit() {
     // Subscribe to Params being passed in
