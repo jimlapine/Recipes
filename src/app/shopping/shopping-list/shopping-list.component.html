@@ -7,7 +7,7 @@
         <!-- added async pipe, since our Ingredients are now an observable returned from our state store -->
         <!-- Ingredients is a property of the shoppingListState, see below -->
         <tr *ngFor="let ingredient of (shoppingListState | async).ingredients; let i = index" style="cursor: pointer"
-        (click)="OnEditItem(i)">
+        (click)="onEditItem(i)">
 					<td>
 						{{ ingredient.name }}
 					</td>

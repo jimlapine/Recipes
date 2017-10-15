@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Recipe } from '../../shared/recipe.model';
 import { RecipeService } from '../../services/recipe.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Store } from '@ngRx/store';
+import { Store } from '@ngrx/store';
 // bundles exverything exprted from shopping-list.actions into one JavaScript object
 import * as ShoppingListActions from '../../shopping/ngRxStore/shopping-list.actions';
 import * as fromShoppingList from '../../shopping/ngRxStore/shopping-list.reducers';

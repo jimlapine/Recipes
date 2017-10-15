@@ -1,8 +1,6 @@
-// bundles exverything exprted from shopping-list.actions into one JavaScript object
 import * as ShoppingListActions from './shopping-list.actions';
 import { Ingredient } from '../../shared/ingredient.model';
 
-// Create a AppState Interface, which has a shopping list state interface
 export interface AppState {
   shoppingList: State
 }
@@ -14,7 +12,10 @@ export interface State {
 }
 
 const initialState: State = {
-  ingredients: [],
+  ingredients: [
+    new Ingredient('Apples', 5),
+    new Ingredient('Tomatoes', 10),
+  ],
   editedIngredient: null,
   editedIngredientIndex: -1
 };

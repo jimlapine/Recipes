@@ -7,7 +7,7 @@ import {
 import { NgForm } from '@angular/forms';
 import { Subscription } from 'rxjs/Subscription';
 import { Ingredient } from '../../shared/ingredient.model';
-import { Store } from '@ngRx/store';
+import { Store } from '@ngrx/store';
 // bundles exverything exprted from shopping-list.actions into one JavaScript object
 import * as ShoppingListActions from '../ngRxStore/shopping-list.actions';
 // Importing our interfaces from the shopping list reducers
