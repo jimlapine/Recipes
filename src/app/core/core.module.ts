@@ -6,7 +6,6 @@ import { SharedModule } from '../shared/shared.module';
 import { HeaderComponent } from './header/header.component';
 import { HomeComponent } from './home/home.component';
 import { PageNotFoundComponent } from '../page-not-found/page-not-found.component';
-import { ShoppingService } from '../services/shopping.service';
 import { RecipeService } from '../services/recipe.service';
 import { AuthentificationService} from '../auth/auth.service';
 import { AuthInterceptor } from '../shared/auth.interceptor';
@@ -27,7 +26,6 @@ import { LoggingInterceptor } from '../shared/logging.interceptor';
     HeaderComponent
   ],
   providers : [
-    ShoppingService,
     RecipeService,
     AuthentificationService,
     // Using a http interceptor requires this special way of informing angular to use it,
