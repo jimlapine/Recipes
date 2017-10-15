@@ -27,30 +27,23 @@ export class ShoppingListEditComponent implements OnInit, OnDestroy {
   // our shoppingListReducer expects a list of Ingredients, which is passed as the 2nd JavaScript object
   constructor(private store: Store<fromShoppingList.AppState>) { }
 
-  ngOnInit() {
-
-    const bob = this.store.select('shoppingList');
-
-    this.subscription = this.store.select('shoppingList')
-      .subscribe(
-      data => {
-        console.log(`data: ${data}`)
-        if (data !== undefined) {
-          if (data.editedIngredientIndex !== -1) {
-            this.editedItem = data.editedIngredient;
-            this.editMode = true;
-
-            console.log(`index: ${data.editedIngredientIndex}`);
-            console.log(`editedItem: ${this.editedItem}`);
-            // Assign the edited values to our form
-            this.ingredientForm.setValue({ name: this.editedItem.name, amount: this.editedItem.amount });
-          } else {
-            this.editMode = false;
+    ngOnInit() {
+      this.subscription = this.store.select('shoppingList')
+        .subscribe(
+          data => {
+            if (data.editedIngredientIndex > -1) {
+              this.editedItem = data.editedIngredient;
+              this.editMode = true;
+              this.ingredientForm.setValue({
+                name: this.editedItem.name,
+                amount: this.editedItem.amount
+              })
+            } else {
+              this.editMode = false;
+            }
           }
-        }
-      }
-      );
-  }
+        );
+    }
 
   ngOnDestroy() {
     // Clean up subscription, prevents memory leaks

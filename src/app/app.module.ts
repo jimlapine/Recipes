@@ -22,7 +22,7 @@ import { shoppingListReducer } from './shopping/ngRxStore/shopping-list.reducers
     SharedModule,
     CoreModule,
     // register our reducer
-    StoreModule.forRoot({ shoppinglist: shoppingListReducer })
+    StoreModule.forRoot({ shoppingList: shoppingListReducer })
   ],
   bootstrap: [AppComponent]
 })
