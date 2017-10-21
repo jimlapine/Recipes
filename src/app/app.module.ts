@@ -9,7 +9,7 @@ import { ShoppingModule } from './shopping/shopping.module';
 import { CoreModule } from './core/core.module';
 // Add the ngRx stroe module for out application state store
 import { StoreModule } from '@ngrx/store';
-import { shoppingListReducer } from './shopping/ngRxStore/shopping-list.reducers';
+import { reducers } from './ngRxStore/app.reducers';
 @NgModule({
   declarations: [
     AppComponent
@@ -21,8 +21,9 @@ import { shoppingListReducer } from './shopping/ngRxStore/shopping-list.reducers
     HttpClientModule,
     SharedModule,
     CoreModule,
-    // register our reducer
-    StoreModule.forRoot({ shoppingList: shoppingListReducer })
+    // register our reducers
+    StoreModule.forRoot(reducers),
+
   ],
   bootstrap: [AppComponent]
 })

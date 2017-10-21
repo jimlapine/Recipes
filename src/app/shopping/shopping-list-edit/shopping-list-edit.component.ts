@@ -11,7 +11,7 @@ import { Store } from '@ngrx/store';
 // bundles exverything exprted from shopping-list.actions into one JavaScript object
 import * as ShoppingListActions from '../ngRxStore/shopping-list.actions';
 // Importing our interfaces from the shopping list reducers
-import * as fromShoppingList from '../ngRxStore/shopping-list.reducers';
+import * as fromApp from '../../ngRxStore/app.reducers';
 @Component({
   selector: 'app-shopping-list-edit',
   templateUrl: './shopping-list-edit.component.html',
@@ -25,7 +25,7 @@ export class ShoppingListEditComponent implements OnInit, OnDestroy {
 
   // the store type conforms to the specification in app.module.ts: StoreModule.forRoot({ shoppinglist: shoppingListReducer })
   // our shoppingListReducer expects a list of Ingredients, which is passed as the 2nd JavaScript object
-  constructor(private store: Store<fromShoppingList.AppState>) { }
+  constructor(private store: Store<fromApp.AppState>) { }
 
     ngOnInit() {
       this.subscription = this.store.select('shoppingList')
