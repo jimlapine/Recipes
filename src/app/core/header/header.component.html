@@ -22,7 +22,7 @@
     </li>
     <ul class="nav navbar-nav navbar-right">
       <ng-template
-        [ngIf]="!authService.isAuthenticated()">
+        [ngIf]="!(authState | async).isAuthenticated">
           <li role="presentation">
               <a
                 routerLinkActive="active"
@@ -38,10 +38,10 @@
           <a style="cursor: pointer;"
             routerLinkActive="active"
             (click)="onLogOut()"
-            *ngIf="authService.isAuthenticated()">Log Out</a>
+            *ngIf="(authState | async).isAuthenticated">Log Out</a>
         </li>
       <li class="dropdown pull-right"
-        *ngIf="authService.isAuthenticated()"
+        *ngIf="(authState | async).isAuthenticated"
         appDropdownAlt> <!-- Used later -->
         <!-- Used to show drop menu later caret is caret icon to indicate drop down -->
         <a class="dropdown-toggle" role="button" style="cursor: pointer;">Manage
