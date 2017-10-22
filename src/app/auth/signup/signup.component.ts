@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { AuthentificationService } from '../auth.service';
-
+import { Store } from '@ngrx/store';
+import * as fromApp from '../../ngRxStore/app.reducers';
+import * as AuthActions from '../ngRxStore/auth.actions';;
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
@@ -9,7 +10,7 @@ import { AuthentificationService } from '../auth.service';
 })
 export class SignupComponent implements OnInit {
 
-  constructor(public authService: AuthentificationService) { }
+  constructor(public store: Store<fromApp.AppState>) { }
 
   ngOnInit() {
 
@@ -21,10 +22,11 @@ export class SignupComponent implements OnInit {
     const password = form.value.password;
     // install firebase SDK
     // npm install --save firebase
-    this.authService.signupUser(email, password);
+    // this.authService.signupUser(email, password);
+    this.store.dispatch(new AuthActions.TrySignUp({ username: email, password: password }));
   }
 
   onReTry() {
-    this.authService.clearError();
+    // this.authService.clearError();
   }
 }

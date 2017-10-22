@@ -1,11 +1,18 @@
 import { Action } from '@ngrx/store';
 
+// Used for side effect
+export const TRY_SIGNNUP = 'TRY_SIGNUP';
 // Create auth action constants
 export const SIGN_UP = 'SIGN_UP';
 export const SIGN_IN = 'SIGN_IN';
 export const SIGN_OUT = 'SIGN_OUT';
 export const SET_TOKEN = 'SET_TOKEN';
 
+// Used by out auth side effects
+export class TrySignUp implements Action {
+  readonly type = TRY_SIGNNUP;
+  constructor(public payload: { username: string, password: string }) {}
+}
 
 export class SignUp implements Action {
   readonly type = SIGN_UP;
@@ -13,7 +20,6 @@ export class SignUp implements Action {
 
 export class SignIn implements Action {
   readonly type = SIGN_IN;
-  // constructor(public payload: { email: string, password: string }) {}
 }
 
 export class SignOut implements Action {
@@ -27,4 +33,4 @@ export class SetToken implements Action {
 }
 
 // Export Action class types
-export type AuthActions = SignUp | SignIn | SignOut | SetToken;
+export type AuthActions = SignUp | SignIn | SignOut | SetToken | TrySignUp;

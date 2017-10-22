@@ -22,12 +22,14 @@ export class AuthInterceptor implements HttpInterceptor {
     // const newRequest = req.clone({ params: params });
     // Class example:
 
-    // console.log(`AuthInterceptor Request: ${ newRequest }`);
+    console.log(`AuthInterceptor Request: ${ req }`);
 
     // switchMap will not wrap the results in a new observalbe, where map will
     // Get the state, which is an observable, swithmap to get the token,
     // add the token to the parameter of our cloned request and return it
-    return this.store.select('auth').switchMap((authState: fromAuth.State) => {
+    return this.store.select('auth')
+      .take(1) // Take 1 means only do this operatation once, not each time app state is changed
+      .switchMap((authState: fromAuth.State) => {
       const newRequest = req.clone({ params: req.params.set('auth', authState.token) });
       return next.handle(newRequest);
     });

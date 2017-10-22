@@ -10,6 +10,8 @@ import { CoreModule } from './core/core.module';
 // Add the ngRx stroe module for out application state store
 import { StoreModule } from '@ngrx/store';
 import { reducers } from './ngRxStore/app.reducers';
+import { AuthEffects } from './auth/ngRxStore/auth.effects';
+import { EffectsModule } from '@ngrx/effects';
 @NgModule({
   declarations: [
     AppComponent
@@ -23,6 +25,8 @@ import { reducers } from './ngRxStore/app.reducers';
     CoreModule,
     // register our reducers
     StoreModule.forRoot(reducers),
+    // register our side effects, we could have more than one
+    EffectsModule.forRoot([AuthEffects])
 
   ],
   bootstrap: [AppComponent]
