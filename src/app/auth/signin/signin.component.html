@@ -1,5 +1,6 @@
-<div class="row"
-  *ngIf="!this.authService.getError()">
+<!-- <div class="row"
+  *ngIf="!this.authService.getError()"> -->
+<div class="row">
   <div class="col-xs-12 col sm-10 col-md-6 col-sm-offset-1 col-md-offset-2">
       <form
         (ngSubmit)="onSignIn(f)"
@@ -16,14 +17,17 @@
       <input type="password" name="password" id="password" class="form-control"
         required
         minlength="6"
-        ngModel>
+        ngModel
+        (keydown)='onKeyDown($event)'>
+      <Label class="text-danger"
+        *ngIf = "isCapsLock">Caps lock is on.</Label>
     </div>
     <button type="submit" class="btn btn-primary"
       [disabled]="!f.valid">Sign In</button>
     </form>
   </div>
 </div>
-<div class="row"
+<!-- <div class="row"
   *ngIf="this.authService.getError()">
   <div class="col-xs-12 col sm-10 col-md-6 col-sm-offset-1 col-md-offset-2">
     <h1>Login Failed:</h1>
@@ -31,5 +35,5 @@
     <a style="cursor: pointer"
       (click)="onReTry()">Please try again.</a>
   </div>
-</div>
+</div> -->
 
