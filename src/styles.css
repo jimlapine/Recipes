@@ -1,1 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
+#capslock:after  {
+  content: "\A Caps lock is on.";
+  white-space: pre;
+  color: red;
+  font-weight: bold;
+}
