@@ -1,6 +1,5 @@
 import { Component, OnInit, Output } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { AuthentificationService } from '../auth.service';
 import { Store } from '@ngrx/store';
 import * as fromApp from '../../ngRxStore/app.reducers';
 import * as AuthActions from '../ngRxStore/auth.actions';

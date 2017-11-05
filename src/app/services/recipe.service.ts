@@ -6,7 +6,6 @@ import { HttpClient, HttpHeaders, HttpParams, HttpRequest } from '@angular/commo
 // allows us to use map
 import 'rxjs/Rx';
 import { Observable } from 'rxjs/Observable';
-import { AuthentificationService } from '../auth/auth.service';
 import * as ShoppingListActions from '../shopping/ngRxStore/shopping-list.actions';
 import { Recipe } from '../shared/recipe.model';
 import { Ingredient } from '../shared/ingredient.model';
@@ -40,9 +39,7 @@ export class RecipeService {
   ];
 
   // Inject shopping service
-  constructor(
-    // private shoppingService: ShoppingService,
-    private authService: AuthentificationService, private http: HttpClient) { }
+  constructor(private http: HttpClient) { }
 
   getRecipes() {
     // Returns a copy of the recipe list

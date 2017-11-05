@@ -7,7 +7,6 @@ import { HeaderComponent } from './header/header.component';
 import { HomeComponent } from './home/home.component';
 import { PageNotFoundComponent } from '../page-not-found/page-not-found.component';
 import { RecipeService } from '../services/recipe.service';
-import { AuthentificationService} from '../auth/auth.service';
 import { AuthInterceptor } from '../shared/auth.interceptor';
 import { LoggingInterceptor } from '../shared/logging.interceptor';
 @NgModule({
@@ -27,7 +26,6 @@ import { LoggingInterceptor } from '../shared/logging.interceptor';
   ],
   providers : [
     RecipeService,
-    AuthentificationService,
     // Using a http interceptor requires this special way of informing angular to use it,
     // multi = true allow us to set more than one interceptor
     // Both of these must be imported above
