@@ -5,6 +5,7 @@ import * as AuthActions from './auth.actions';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/mergeMap';
+import 'rxjs/add/operator/do';
 import * as firebase from 'firebase';
 // Allow us to convert a promise to an obserbable
 import { fromPromise } from 'rxjs/observable/fromPromise';
@@ -68,6 +69,12 @@ export class AuthEffects {
       ]
     });
 
+  @Effect({ dispatch: false }) // we do not dispatch a new action
+  authSignOut = this.actions$
+  .ofType(AuthActions.SIGN_OUT)
+  .do(() => {
+    this.router.navigate(['/']);
+  });
   // actions is an observable
   constructor(private router: Router, private actions$: Actions) {}
 
