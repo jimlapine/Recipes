@@ -18,8 +18,7 @@
       <input type="password" name="password" id="password" class="form-control"
         required
         minlength="6"
-        ngModel
-        (keydown)='onKeyDown($event)'>
+        ngModel>
       <Label class="text-danger"
         *ngIf = "isCapsLock">Caps lock is on.</Label>
     </div>

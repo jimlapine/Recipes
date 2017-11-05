@@ -10,9 +10,10 @@ export class CapslockDirective {
   constructor(private elRef: ElementRef, private render: Renderer2) { }
 
   switchCapsLock(eventData: KeyboardEvent) {
-
+    const regex = /[a-zA-Z]/
     this.isShiftPressed = eventData.getModifierState('Shift');
-    this.isCapsLock = (eventData.key === eventData.key.toLocaleUpperCase() && !this.isShiftPressed);
+    this.isCapsLock = regex.test(eventData.key) &&
+      (eventData.key === eventData.key.toLocaleUpperCase() && !this.isShiftPressed);
 
     if (this.isCapsLock) {
       // this.render.appendChild('li', '<Label class="text-danger">Caps lock is on.</Label>');
