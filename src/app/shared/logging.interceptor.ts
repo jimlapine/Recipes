@@ -8,7 +8,7 @@ export class LoggingInterceptor implements HttpInterceptor {
     // we pass the request along and use the do operator on the observable, so that we do not consume it
     return next.handle(req).do(
       (event) => {
-        console.log(`LoggingInterceptor event.type: ${event.type}`);
+        // console.log(`LoggingInterceptor event.type: ${event.type}`);
       }
     );
   }

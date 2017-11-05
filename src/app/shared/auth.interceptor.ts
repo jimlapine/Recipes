@@ -22,7 +22,7 @@ export class AuthInterceptor implements HttpInterceptor {
     // const newRequest = req.clone({ params: params });
     // Class example:
 
-    console.log(`AuthInterceptor Request: ${ req }`);
+    // console.log(`AuthInterceptor Request: ${ req }`);
 
     // switchMap will not wrap the results in a new observalbe, where map will
     // Get the state, which is an observable, swithmap to get the token,

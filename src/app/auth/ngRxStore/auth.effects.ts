@@ -78,7 +78,7 @@ export class AuthEffects {
   // actions is an observable
   constructor(private router: Router, private actions$: Actions) {}
 
-  navigateToRecipes(){
+  navigateToRecipes() {
     // navigate to recipes
     this.router.navigate(['/Recipe']);
   }

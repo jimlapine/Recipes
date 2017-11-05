@@ -12,6 +12,9 @@ import { StoreModule } from '@ngrx/store';
 import { reducers } from './ngRxStore/app.reducers';
 import { AuthEffects } from './auth/ngRxStore/auth.effects';
 import { EffectsModule } from '@ngrx/effects';
+import { environment } from '../environments/environment'; // Allows us to check whether we are in prod or dev, see StoreDevtools
+import { StoreRouterConnectingModule } from '@ngrx/router-store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 @NgModule({
   declarations: [
     AppComponent
@@ -26,8 +29,9 @@ import { EffectsModule } from '@ngrx/effects';
     // register our reducers
     StoreModule.forRoot(reducers),
     // register our side effects, we could have more than one
-    EffectsModule.forRoot([AuthEffects])
-
+    EffectsModule.forRoot([AuthEffects]),
+    StoreRouterConnectingModule, // tracks router state changes
+    !environment.production ? StoreDevtoolsModule.instrument() : [] // StoreDevToolsModule requires ReDex DevTools chrome extension
   ],
   bootstrap: [AppComponent]
 })
