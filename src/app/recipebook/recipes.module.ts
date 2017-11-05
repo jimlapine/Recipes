@@ -10,7 +10,8 @@ import { RecipeEditComponent } from '../recipebook/recipe-edit/recipe-edit.compo
 import { RecipesRoutingModule } from '../recipebook/recipe-routing.module';
 import { IngredientComponent } from '../ingredient/ingredient.component';
 import { SharedModule } from '../shared/shared.module';
-
+import { StoreModule } from '@ngrx/store';
+import { RecipeReducer } from './ngRxStore/recipe.reducers';
 @NgModule({
   declarations: [
     RecipebookComponent,
@@ -26,11 +27,10 @@ import { SharedModule } from '../shared/shared.module';
     CommonModule,
     ReactiveFormsModule,
     RecipesRoutingModule,
-    SharedModule
+    SharedModule,
+    StoreModule.forFeature('recipes', RecipeReducer) // Add store module for recipe module, also lets us use lazy loading
   ]
-}
-
-)
+})
 export class RecipesModule {
 
 }
