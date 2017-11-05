@@ -44,15 +44,18 @@ export class AuthEffects {
   authSignIn = this.actions$
     .ofType(AuthActions.TRY_SIGNIN)
     .map((action: AuthActions.TrySignIn) => {
+      // console.log(`action.payload ${ action.payload }`);
       return action.payload;
     }).
     switchMap((authData: { username: string, password: string }) => {
+      // console.log(`authData ${ authData.username }, ${ authData.password }`);
       return fromPromise(firebase.auth().signInWithEmailAndPassword(authData.username, authData.password))
     })
     .switchMap(() => {
       return fromPromise(firebase.auth().currentUser.getIdToken());
     })
     .mergeMap((token: string) => {
+      // console.log(`token ${ token }`);
       this.navigateToRecipes();
       return [
         {
