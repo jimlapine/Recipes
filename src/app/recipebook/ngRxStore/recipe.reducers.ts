@@ -41,7 +41,7 @@ export interface FeatureState extends fromApp.AppState {
   recipes: State
 }
 
-export function RecipeReducer( state = initialState, action: RecipeActions.RecipeActions ) {
+export function recipeReducer( state = initialState, action: RecipeActions.RecipeActions ) {
   switch (action.type) {
     case RecipeActions.SET_RECIPES:
       return {

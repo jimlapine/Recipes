@@ -37,7 +37,7 @@ export class DataStorageService {
     this.httpClient.get<Recipe[]>('https://ng-recipe-book-3e610.firebaseio.com/recipes.json')
       .map(
         (recipes) => {
-          console.log(`getRecipes: ${ recipes } `);
+          // console.log(`getRecipes: ${ recipes } `);
           // const recipes: Recipe[] = response.json();
           for (const recipe of recipes) {
             if (!recipe['ingredients']) {
