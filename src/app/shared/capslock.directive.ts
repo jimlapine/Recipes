@@ -10,7 +10,9 @@ export class CapslockDirective {
   constructor(private elRef: ElementRef, private render: Renderer2) { }
 
   switchCapsLock(eventData: KeyboardEvent) {
-    const regex = /[a-zA-Z]/
+    const regex = /[a-zA-Z]+$/;
+    // console.log(`eventData.key: ${ eventData.key }`);
+    // console.log(`regex.test(eventData.key): ${ regex.test(eventData.key) }`);
     this.isShiftPressed = eventData.getModifierState('Shift');
     this.isCapsLock = regex.test(eventData.key) &&
       (eventData.key === eventData.key.toLocaleUpperCase() && !this.isShiftPressed);
