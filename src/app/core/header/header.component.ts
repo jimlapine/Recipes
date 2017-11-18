@@ -6,7 +6,6 @@ import * as fromApp from '../../ngRxStore/app.reducers';
 import * as fromAuth from '../../auth/ngRxStore/auth.reducers';
 import * as AuthActions from '../../auth/ngRxStore/auth.actions';
 import * as RecipeActions from '../../recipebook/ngRxStore/recipe.actions';
-import { DataStorageService } from '../../shared/data-storage.service';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -15,7 +14,7 @@ import { DataStorageService } from '../../shared/data-storage.service';
 export class HeaderComponent implements OnInit {
   // property auth state, which is retrieved from the store
   authState: Observable<fromAuth.State>;
-  constructor(private dataStorageService: DataStorageService, private store: Store<fromApp.AppState> ) { }
+  constructor( private store: Store<fromApp.AppState> ) { }
 
   ngOnInit() {
     // get the auth state
@@ -23,7 +22,7 @@ export class HeaderComponent implements OnInit {
   }
 
   onSave() {
-    this.dataStorageService.storeRecipes();
+    this.store.dispatch(new RecipeActions.StoreRecipes());
   }
 
   onFetch() {
