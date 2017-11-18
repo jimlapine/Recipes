@@ -19,8 +19,8 @@
         required
         minlength="6"
         ngModel>
-      <Label class="text-danger"
-        *ngIf = "isCapsLock">Caps lock is on.</Label>
+      <!-- <Label class="text-danger"
+        *ngIf = "isCapsLock">Caps lock is on.</Label> -->
     </div>
     <button type="submit" class="btn btn-primary"
       [disabled]="!f.valid">Sign In</button>
