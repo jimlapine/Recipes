@@ -14,8 +14,7 @@ export class RecipeListComponent implements OnInit {
   recipeID: number;
 
   // Inject the recipe service
-  constructor(private store: Store<fromRecipe.FeatureState>,
-    private router: Router, private route: ActivatedRoute) {
+  constructor(private store: Store<fromRecipe.FeatureState>, private router: Router, private route: ActivatedRoute) {
   }
 
   ngOnInit() {
@@ -27,17 +26,4 @@ export class RecipeListComponent implements OnInit {
     this.router.navigate(['new'], { relativeTo: this.route })
   }
 
-  // My original solution to getting recipe to the Recipe Item component
-  // recipeClicked(recipe: Recipe) {
-  //   // Get Recipe ID
-  //   this.recipeID = this.recipes.findIndex(
-  //     (elem, indx) => {
-  //       if (elem.name === recipe.name) {
-  //         return true;
-  //       }
-  //     }
-  //   );
-
-  //   this.router.navigate(['/Recipe', this.recipeID], { relativeTo: this.route });
-  // }
 }

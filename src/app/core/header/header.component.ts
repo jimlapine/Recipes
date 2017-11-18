@@ -1,5 +1,4 @@
 import { Component, OnInit, Output } from '@angular/core';
-import { RecipeService } from '../../services/recipe.service';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import * as fromApp from '../../ngRxStore/app.reducers';
@@ -14,7 +13,7 @@ import * as RecipeActions from '../../recipebook/ngRxStore/recipe.actions';
 export class HeaderComponent implements OnInit {
   // property auth state, which is retrieved from the store
   authState: Observable<fromAuth.State>;
-  constructor( private store: Store<fromApp.AppState> ) { }
+  constructor(private store: Store<fromApp.AppState> ) { }
 
   ngOnInit() {
     // get the auth state

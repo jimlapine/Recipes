@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import * as recipeActons from '../ngRxStore/recipe.actions';
+import 'rxjs/add/operator/take';
 // bundles exverything exported from shopping-list.actions into one JavaScript object
 import * as ShoppingListActions from '../../shopping/ngRxStore/shopping-list.actions';
 import * as fromRecipe from 'app/recipebook/ngRxStore/recipe.reducers';
