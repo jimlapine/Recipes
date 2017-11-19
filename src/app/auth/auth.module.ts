@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { SigninComponent } from '../auth/signin/signin.component';
 import { SignupComponent } from '../auth/signup/signup.component';
 import { AuthRoutingModule } from './auth.-routing.module';
-
+import { SharedModule } from '../shared/shared.module';
 @NgModule({
   declarations: [
     SigninComponent,
@@ -14,7 +14,8 @@ import { AuthRoutingModule } from './auth.-routing.module';
     // Always import this module, it gives you access to common directives
     CommonModule,
     FormsModule,
-    AuthRoutingModule
+    AuthRoutingModule,
+    SharedModule
   ],
   providers: [
   ],

@@ -1,28 +1,29 @@
 import { Component, OnInit } from '@angular/core';
-import { Recipe } from '../../shared/recipe.model';
-import { RecipeService } from '../../services/recipe.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-// bundles exverything exprted from shopping-list.actions into one JavaScript object
+import { Observable } from 'rxjs/Observable';
+import * as recipeActons from '../ngRxStore/recipe.actions';
+import 'rxjs/add/operator/take';
+// bundles exverything exported from shopping-list.actions into one JavaScript object
 import * as ShoppingListActions from '../../shopping/ngRxStore/shopping-list.actions';
-import * as fromApp from '../../ngRxStore/app.reducers';
+import * as fromRecipe from 'app/recipebook/ngRxStore/recipe.reducers';
 @Component({
   selector: 'app-recipe-detail',
   templateUrl: './recipe-detail.component.html',
   styleUrls: ['./recipe-detail.component.css']
 })
 export class RecipeDetailComponent implements OnInit {
-  details: Recipe;
+  detailState: Observable<fromRecipe.State>;
   id: number;
-  constructor(private recipeServce: RecipeService, private router: Router,
-    private route: ActivatedRoute, private store: Store<fromApp.AppState>) { }
+  constructor(private router: Router,
+    private route: ActivatedRoute, private store: Store<fromRecipe.FeatureState>) { }
 
   ngOnInit() {
     // Subscribe to Params being passed in
     this.route.params.subscribe(
       (params) => {
         this.id = +params['id'];
-        this.details = this.recipeServce.getRecipe(this.id);
+        this.detailState = this.store.select('recipes');
       }
     );
    }
@@ -45,13 +46,22 @@ export class RecipeDetailComponent implements OnInit {
 
     // Class example injected shopping service into recipe service
     // this.recipeServce.addIngredientsToShoppingList(this.details.ingredients);
-    this.store.dispatch(new ShoppingListActions.AddIngredients(this.details.ingredients));
+    this.store.select('recipes')
+      .take(1) // makes sure this does not fire on every state change
+      .subscribe(
+        (recipeState: fromRecipe.State) => {
+          this.store.dispatch(new ShoppingListActions.AddIngredients(
+            recipeState.recipes[this.id].ingredients));
+        }
+      );
+
     // console.log('this.details.ingredients: ', this.details.ingredients);
   }
 
   onDeleteRecipe() {
     if (confirm('Are you sure that you want to delete this recipe?')) {
-      this.recipeServce.deleteRecipe(this.id);
+      this.store.dispatch(new recipeActons.DeleteRecipe(this.id));
+      // this.recipeServce.deleteRecipe(this.id);
       this.router.navigate(['/Recipe']);
     }
   }

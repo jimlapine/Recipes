@@ -1,10 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormGroup, FormControl, FormArray, Validators } from '@angular/forms';
-import { RecipeService } from '../../services/recipe.service';
 import { Recipe } from '../../shared/recipe.model';
 import { Ingredient } from '../../shared/ingredient.model';
-
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs/Observable';
+import * as recipeActons from '../ngRxStore/recipe.actions';
+import { StartEdit } from 'app/shopping/ngRxStore/shopping-list.actions';
+import * as fromRecipe from 'app/recipebook/ngRxStore/recipe.reducers';
 @Component({
   selector: 'app-recipe-edit',
   templateUrl: './recipe-edit.component.html',
@@ -14,9 +17,10 @@ export class RecipeEditComponent implements OnInit {
   recipeID: number;
   editMode = false;
   recipeForm: FormGroup;
+  recipeState: Observable<fromRecipe.State>;
   recipe: Recipe;
-
-  constructor(private router: Router, private route: ActivatedRoute, private recipeService: RecipeService ) { }
+  constructor(private router: Router, private route: ActivatedRoute,
+    private store: Store<fromRecipe.FeatureState> ) { }
 
   ngOnInit() {
 
@@ -43,13 +47,20 @@ export class RecipeEditComponent implements OnInit {
 
     // Get recipe if we are in edit mode
     if (this.editMode) {
-      this.recipe = this.recipeService.getRecipe(this.recipeID);
-      // console.log('this.recipe: ', this.recipe);
-      if (this.recipe.ingredients.length > 0) {
-        for (const ingredient of this.recipe.ingredients) {
-          recipeIngredients.push(this.IngredientGroup(ingredient));
-        }
-      }
+      this.store.select('recipes')
+        .take(1)
+        .subscribe(
+          (recipeState: fromRecipe.State) => {
+            this.recipe = recipeState.recipes[this.recipeID];
+            // console.log('this.recipe: ', this.recipe);
+            if (this.recipe.ingredients.length > 0) {
+              for (const ingredient of this.recipe.ingredients) {
+                recipeIngredients.push(this.IngredientGroup(ingredient));
+              }
+            }
+          }
+      );
+
     }
     const urlPattern = /^https?:\/\/(?:[a-z0-9\-]+\.)+[a-z]{2,6}(?:\/[^/#?]+)+\.(?:jpg|gif|png|jpeg)$/;
     // Set up form with Recipe
@@ -102,9 +113,11 @@ export class RecipeEditComponent implements OnInit {
 
   handleAddUpdate() {
     if (this.editMode) {
-      this.recipeService.updateRecipe(this.recipeID, this.recipe);
+      // this.recipeService.updateRecipe(this.recipeID, this.recipe);
+      this.store.dispatch(new recipeActons.UpdateRecipe({ id: this.recipeID, updatedRecipe: this.recipe }))
     } else {
-      this.recipeService.addRecipe(this.recipe);
+      // this.recipeService.addRecipe(this.recipe);
+      this.store.dispatch(new recipeActons.AddRecipe(this.recipe));
     }
   }
 }

@@ -1,5 +1,4 @@
 import { Component, OnInit, HostListener } from '@angular/core';
-import { AuthentificationService } from './auth/auth.service';
 // import firebase SDK
 import * as firebase from 'firebase';
 @Component({
@@ -13,10 +12,10 @@ export class AppComponent implements OnInit {
   @HostListener('window:beforeunload', [ '$event' ])
   beforeUnloadHander(event) {
     // signs user out
-    this.authService.signOut();
+    // this.authService.signOut();
   }
 
- constructor(private authService: AuthentificationService) { }
+ constructor() { }
 
  ngOnInit() {
   // settings from from Firebase - Authertication - Web Setup
